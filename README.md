@@ -1,3 +1,1 @@
-This is my first written Telegram bot app
-
-You can take notes in it, and the web app also has a counter for the number of days until a certain event.
+So, this is the first website I've written, and it has two features: the ability to take notes, and a counter that shows how many days are left until a specific event or how many days have passed since that event.
