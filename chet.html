@@ -3,93 +3,181 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Счет/Отсчет события</title>
+    <title>Отсчет</title>
     <style>
         body {
-            background: linear-gradient(to right, #6a11cb, #2575fc);
+            background-color: #003135;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: white;
-            font-family: Arial, sans-serif;
             text-align: center;
-            padding: 50px;
+            padding: 50px 20px;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
         }
-        input, button {
-            padding: 10px;
-            margin: 10px;
-            border: none;
-            border-radius: 5px;
+        .container {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 255, 198, 0.1);
+            width: 100%;
+            max-width: 500px;
+            box-sizing: border-box;
+        }
+        h1 {
+            color: #00FFC6;
+            margin-bottom: 30px;
+            font-weight: 400;
+            letter-spacing: 2px;
+            font-size: 24px;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        input, select {
+            padding: 12px 15px;
+            background-color: rgba(0, 0, 0, 0.3);
+            border: 2px solid #00FFC6;
+            border-radius: 8px;
+            color: white;
+            font-size: 16px;
+            font-family: inherit;
+            outline: none;
+            box-sizing: border-box;
+            transition: box-shadow 0.3s ease;
+        }
+        input:focus, select:focus {
+            box-shadow: 0 0 15px rgba(0, 255, 198, 0.3);
+        }
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            filter: invert(1) sepia(1) saturate(5) hue-rotate(130deg);
+            cursor: pointer;
+        }
+        select option {
+            background-color: #003135;
+            color: white;
+        }
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 25px;
         }
         button {
-            background: linear-gradient(to right, #00c6ff, #0072ff);
-            color: white;
+            background: transparent;
+            border: 2px solid #00FFC6;
+            color: #00FFC6;
+            padding: 12px 24px;
+            font-size: 14px;
             cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: bold;
+            flex: 1;
         }
-    </style>
-</head>
-<body>
-    <h1>Счет/Отсчет события</h1>
-    <input type="date" id="eventDate" required>
-    <input type="text" id="eventName" placeholder="Event Name" required>
-    <select id="countdownType">
-        <option value="countdownTo">Сколько до</option>
-        <option value="countdownFrom">Сколько после</option>
-    </select>
-    <button onclick="saveEvent()">Сохранить</button>
-    <button onclick="checkEvent()">Посмотреть</button>
-    <div id="result"></div>
-<title>Return Button</title>
-    <style>
+        button:hover {
+            background: #00FFC6;
+            color: #003135;
+            box-shadow: 0 0 15px rgba(0, 255, 198, 0.4);
+        }
+        #result {
+            margin-top: 15px;
+            margin-bottom: 25px;
+            font-size: 18px;
+            color: #00FFC6;
+            font-weight: bold;
+            min-height: 24px;
+        }
         .return-button {
-            background: linear-gradient(to right, #00aaff, #0044cc);
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            text-align: center;
+            background: transparent;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: rgba(255, 255, 255, 0.7);
+            padding: 12px 24px;
             text-decoration: none;
             display: inline-block;
-            font-size: 16px;
-            margin: 4px 2px;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: background 0.3s;
+            font-size: 14px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
-
         .return-button:hover {
-            background: linear-gradient(to right, #0044cc, #00aaff);
+            border-color: white;
+            color: white;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
         }
     </style>
 </head>
 <body>
 
-    <a href="index.html" class="return-button">На главную</a>
+    <div class="container">
+        <h1>Отсчет</h1>
+        
+        <div class="form-group">
+            <input type="date" id="eventDate" required>
+            <input type="text" id="eventName" placeholder="Название события" required>
+            <select id="countdownType">
+                <option value="countdownTo">Сколько до</option>
+                <option value="countdownFrom">Сколько после</option>
+            </select>
+        </div>
+
+        <div class="btn-group">
+            <button onclick="saveEvent()">Сохранить</button>
+            <button onclick="checkEvent()">Посмотреть</button>
+        </div>
+
+        <div id="result"></div>
+
+        <a href="index.html" class="return-button">На главную</a>
+    </div>
+
     <script>
         function saveEvent() {
             const date = document.getElementById('eventDate').value;
             const name = document.getElementById('eventName').value;
             const type = document.getElementById('countdownType').value;
+            if (!date || !name) {
+                alert('Пожалуйста, заполните все поля!');
+                return;
+            }
             const eventData = { date, name, type };
             localStorage.setItem('eventData', JSON.stringify(eventData));
-            alert('Event saved!');
+            alert('Событие успешно сохранено!');
         }
 
         function checkEvent() {
             const eventData = JSON.parse(localStorage.getItem('eventData'));
             if (!eventData) {
-                alert('No event found!');
+                document.getElementById('result').innerText = 'Сохраненных событий не найдено';
                 return;
             }
             const today = new Date();
             const eventDate = new Date(eventData.date);
+            
+            // Сброс для точности
+            today.setHours(0, 0, 0, 0);
+            eventDate.setHours(0, 0, 0, 0);
+            
             let result;
             if (eventData.type === 'countdownTo') {
                 const daysLeft = Math.ceil((eventDate - today) / (1000 * 60 * 60 * 24));
-                result = daysLeft >= 0 ? `${daysLeft} days left until ${eventData.name}` : `${-daysLeft} days since ${eventData.name}`;
+                result = daysLeft >= 0 ? `Осталось дней: ${daysLeft} до "${eventData.name}"` : `Прошло дней: ${-daysLeft} с момента "${eventData.name}"`;
             } else {
                 const daysPassed = Math.ceil((today - eventDate) / (1000 * 60 * 60 * 24));
-                result = `${daysPassed} days since ${eventData.name}`;
+                result = `Прошло дней: ${daysPassed} с момента "${eventData.name}"`;
             }
             document.getElementById('result').innerText = result;
         }
     </script>
 </body>
 </html>
-
