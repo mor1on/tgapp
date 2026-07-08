@@ -1,49 +1,70 @@
-# SmartBot
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SmartBot</title>
+    <title>SmartBot Dashboard</title>
     <style>
+        /* Основная палитра: Deep Sea (#003135) и Bright Aqua (#00FFC6) */
         body {
             height: 100vh;
             margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
-            background: linear-gradient(to bottom right, purple, blue);
-            font-family: Arial, sans-serif;
+            background-color: #003135; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: white;
         }
         .container {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 255, 198, 0.1);
             text-align: center;
+            width: 100%;
+            max-width: 400px;
         }
         h1 {
-            color: white;
+            color: #00FFC6;
             margin-bottom: 40px;
+            font-weight: 400;
+            letter-spacing: 2px;
+        }
+        .button-group {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
         }
         .button {
-            background: linear-gradient(to right, blue, lightblue);
-            border: none;
-            color: white;
+            background: transparent;
+            border: 2px solid #00FFC6;
+            color: #00FFC6;
             padding: 15px 30px;
             font-size: 18px;
             cursor: pointer;
-            border-radius: 5px;
-            margin: 10px;
-            transition: background 0.3s;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-decoration: none;
+            display: block;
         }
         .button:hover {
-            background: linear-gradient(to right, lightblue, blue);
+            background: #00FFC6;
+            color: #003135;
+            box-shadow: 0 0 20px rgba(0, 255, 198, 0.4);
+            transform: translateY(-2px);
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Добро пожаловать!</h1>
-        <a href="chet.html"><button class="button">Счет</button></a>
-        <a href="zametki.html"><button class="button">Заметки</button></a>
+        <h1>SMARTBOT</h1>
+        <div class="button-group">
+            <a href="chet.html" style="text-decoration: none;"><button class="button">Таймер Событий</button></a>
+            <a href="zametki.html" style="text-decoration: none;"><button class="button">Мои Заметки</button></a>
+        </div>
     </div>
 </body>
 </html>
