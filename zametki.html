@@ -1,78 +1,122 @@
-# Редактор Заметок
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ВАШИ ЗАМЕТКИ</title>
+    <title>Мои заметки</title>
     <style>
         body {
-            background: linear-gradient(to right, #6a11cb, #2575fc);
-            font-family: Arial, sans-serif;
+            background-color: #003135;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: white;
             text-align: center;
-            padding: 50px;
+            padding: 50px 20px;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
+        }
+        .container {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 255, 198, 0.1);
+            width: 100%;
+            max-width: 500px;
+            box-sizing: border-box;
+        }
+        h1 {
+            color: #00FFC6;
+            margin-bottom: 30px;
+            font-weight: 400;
+            letter-spacing: 2px;
         }
         #noteField {
-            width: 300px;
-            height: 150px;
-            background-color: #00aaff;
-            border: none;
-            border-radius: 5px;
-            padding: 10px;
-            margin-bottom: 20px;
+            width: 100%;
+            height: 200px;
+            background-color: rgba(0, 0, 0, 0.3);
+            border: 2px solid #00FFC6;
+            border-radius: 10px;
+            padding: 15px;
+            color: white;
+            font-size: 16px;
+            font-family: inherit;
+            resize: none;
+            box-sizing: border-box;
+            margin-bottom: 25px;
+            outline: none;
+            transition: box-shadow 0.3s ease;
+        }
+        #noteField:focus {
+            box-shadow: 0 0 15px rgba(0, 255, 198, 0.3);
+        }
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 30px;
         }
         button {
-            background-color: #00aaff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            padding: 10px 20px;
+            background: transparent;
+            border: 2px solid #00FFC6;
+            color: #00FFC6;
+            padding: 12px 24px;
+            font-size: 14px;
             cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: bold;
+            flex: 1;
         }
         button:hover {
-            background-color: #00aaff;
+            background: #00FFC6;
+            color: #003135;
+            box-shadow: 0 0 15px rgba(0, 255, 198, 0.4);
         }
-    </style>
-</head>
-<body>
-
-    <h1>Мои заметки</h1>
-    <textarea id="noteField" readonly></textarea><br>
-    <button id="editButton">Редактировать заметку</button>
-    <button id="saveButton">Сохранить заметку</button>
-<title>Return Button</title>
-    <style>
         .return-button {
-            background: linear-gradient(to right, #00aaff, #0044cc);
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            text-align: center;
+            background: transparent;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: rgba(255, 255, 255, 0.7);
+            padding: 12px 24px;
             text-decoration: none;
             display: inline-block;
-            font-size: 16px;
-            margin: 4px 2px;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: background 0.3s;
+            font-size: 14px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
-
         .return-button:hover {
-            background: linear-gradient(to right, #0044cc, #00aaff);
+            border-color: white;
+            color: white;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
         }
     </style>
 </head>
 <body>
 
-    <a href="index.html" class="return-button">На главную</a>
+    <div class="container">
+        <h1>МОИ ЗАМЕТКИ</h1>
+        <textarea id="noteField" readonly></textarea>
+        
+        <div class="btn-group">
+            <button id="editButton">Изменить</button>
+            <button id="saveButton">Сохранить</button>
+        </div>
+
+        <a href="index.html" class="return-button">На главную</a>
+    </div>
+
     <script>
         let noteField = document.getElementById('noteField');
         let editButton = document.getElementById('editButton');
         let saveButton = document.getElementById('saveButton');
 
-        // Load saved note from local storage
         window.onload = function() {
             let savedNote = localStorage.getItem('note');
             if (savedNote) {
@@ -80,13 +124,11 @@
             }
         };
 
-        // Enable editing of the note
         editButton.onclick = function() {
             noteField.readOnly = false;
             noteField.focus();
         };
 
-        // Save the note to local storage
         saveButton.onclick = function() {
             localStorage.setItem('note', noteField.value);
             noteField.readOnly = true;
